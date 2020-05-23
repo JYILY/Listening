@@ -37,6 +37,7 @@ import userPane.UserPane;
 
 import java.io.IOException;
 import java.util.*;
+import java.util.concurrent.locks.ReentrantLock;
 
 
 public class Player {
@@ -78,10 +79,11 @@ public class Player {
     private Stage playlistStage;
     private double mx,my,sx,sy;
     public UserPane userPane ;
-
+    public ReentrantLock lock = new ReentrantLock();
     public WYY wyy;
     public Parent root;
     public Stage primaryStage;
+    private long passKey;
 
     private void initPlaylistPane(){
         playListPane = new PlayListPane(playlistPaneWidth,playlistPaneHeight,this);
@@ -104,11 +106,13 @@ public class Player {
                         playSlider.set(mediaPlayer, duration);
                         volumeSlider.set(mediaPlayer);
                         isPlaying = true;
+                        control.setImage((new Image(getClass().getResource("image/pause.png").toExternalForm())));
                         showLyrics = new ShowLyrics(_playlist.get(nowPlayingIndex).lyrics, mediaPlayer, 500, 300);
                         showLyrics.initOwner(primaryStage);
                         if (isShowLyrics) showLyrics.show();
                         else showLyrics.hide();
                         mediaPlayer.setVolume(volumeSlider.value);
+                        lock.unlock();
                     } else {
                         playSlider.setValue(newValue.toMillis() / duration.toMillis());
                         String newTime = String.format("%02d:%02d", (int) newValue.toMinutes(), (int) newValue.toSeconds() % 60);
@@ -128,7 +132,6 @@ public class Player {
             }
         });
     }
-
 
     public void init() throws IOException {
         playSlider = new PlaySlider(385,15);
@@ -218,7 +221,9 @@ public class Player {
         else{
             nowPlayingIndex = _playlist.indexOf(song);
         }
-        replay();
+        long playKey = System.currentTimeMillis();
+        passKey = playKey;
+        replay(playKey);
     }
 
     @FXML
@@ -238,7 +243,7 @@ public class Player {
     }
 
     @FXML
-    public void replay(){
+    public void replay(long key){
         if(!needToLoadTime){
             mediaPlayer.stop();
             mediaPlayer.dispose();
@@ -269,7 +274,9 @@ public class Player {
 
     @FXML
     public void playMv() throws IOException {
-
+        if(isPlaying){
+            play();
+        }
         if(!_playlist.get(nowPlayingIndex).mvSrc.equals("0")){
             new PlayMv(_playlist.get(nowPlayingIndex).mvSrc);
         }

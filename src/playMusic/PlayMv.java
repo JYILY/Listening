@@ -235,6 +235,8 @@ public class PlayMv extends Pane {
                     close.setOnMouseClicked(new EventHandler<MouseEvent>() {
                         @Override
                         public void handle(MouseEvent event) {
+                            mediaPlayer.stop();
+                            mediaPlayer.dispose();
                             watchStage.close();
                         }
                     });
