@@ -3,7 +3,7 @@
     <output-path>$PROJECT_DIR$/out/artifacts/Listening</output-path>
     <properties id="javafx-properties">
       <options>
-        <option name="appClass" value="Main" />
+        <option name="appClass" value="sample.Main" />
         <option name="description" value="" />
         <option name="htmlPlaceholderId" value="" />
         <option name="nativeBundle" value="all" />

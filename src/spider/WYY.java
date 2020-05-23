@@ -87,12 +87,10 @@ public class WYY implements Spider {
         out.write(s.getBytes());
         out.flush();
         int songCount = Integer.parseInt(in.readLine());
-        System.out.println(songCount);
         Song[] songs = new Song[songCount];
         for(int i = 0;i<songCount;i++){
             songs[i] = new Song();
             songs[i].songName = in.readLine();
-            System.out.println(songs[i]+"has been put in");
             songs[i].imgSrc = in.readLine();
             songs[i].duration = Double.parseDouble(in.readLine());
             songs[i].singer = in.readLine();
@@ -116,14 +114,11 @@ public class WYY implements Spider {
         out.write(s.getBytes());
         out.flush();
         song.musicSrc = in.readLine();
-        System.out.println(song.songName);
-        System.out.println(song.mvId);
         if(!song.mvId.equals("0")){
             s = "4\n"+song.mvId+"\n";
             out.write(s.getBytes());
             out.flush();
             song.mvSrc = in.readLine();
-            System.out.println(song.mvSrc);
         }
         return song;
     }

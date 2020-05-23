@@ -1,21 +1,17 @@
+package main;
+
 import base.Playlist;
 import base.Song;
 import javafx.application.Application;
-import javafx.concurrent.Task;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.JavaFXBuilderFactory;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import javafx.stage.WindowEvent;
 import playMusic.Player;
 import playlistPane.PlaylistListPane;
 import playlistPane.TopListPane;
@@ -184,7 +180,7 @@ public class Main extends Application {
 
     private void loadPlayer() throws IOException {
         playerStage = new Stage();
-        URL location = getClass().getResource("playMusic/playMusic.fxml");
+        URL location = getClass().getResource("../playMusic/playMusic.fxml");
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(location);
         fxmlLoader.setBuilderFactory(new JavaFXBuilderFactory());
